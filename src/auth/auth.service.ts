@@ -1,6 +1,7 @@
 import {
   BadRequestException,
   ConflictException,
+  ForbiddenException,
   Injectable,
 } from "@nestjs/common";
 import { UsersService } from "../users/users.service";
@@ -91,5 +92,15 @@ export class AuthService {
       messsage: "user signed in",
       accessToken,
     };
+  }
+
+  async signOut(refreshToken:string, res:Response){
+    const userData = await this.jwtService.verify(refreshToken, {
+      secret: process.env.REFRESH_TOKEN_KEY,
+    });
+
+    if (!userData) {
+      throw new ForbiddenException("User not verified")
+    }
   }
 }
