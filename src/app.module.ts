@@ -14,6 +14,8 @@ import { StoreSocialLinksModule } from './store_social_links/store_social_links.
 import { TypeModule } from './type/type.module';
 import { CategoryModule } from './category/category.module';
 import { DiscountsModule } from './discounts/discounts.module';
+import { Bot } from './bot/model/bot.model';
+import { SocialMediaType } from './social_media_type/models/social_media_type.entity';
 
 // @Module({
 //   imports: [
@@ -46,7 +48,7 @@ import { DiscountsModule } from './discounts/discounts.module';
       username: process.env.PG_USER,
       password: process.env.PG_PASSWORD,
       database: process.env.PG_DB,
-      models: [User],
+      models: [User, Bot],
       autoLoadModels: true,
       sync: { alter: true },
       logging: false,

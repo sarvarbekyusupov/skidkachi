@@ -1,7 +1,8 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, HttpStatus, HttpCode } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { PhoneUserDto } from './dto/phone-user.dto';
 
 @Controller("users")
 export class UsersController {
@@ -35,5 +36,11 @@ export class UsersController {
   @Delete(":id")
   remove(@Param("id") id: string) {
     return this.usersService.remove(+id);
+  }
+
+  @HttpCode(HttpStatus.OK)
+  @Post("new_otp")
+  async newOtp(@Body() phoneUserDto:PhoneUserDto) {
+    return this.usersService.newOtp(phoneUserDto)
   }
 }
